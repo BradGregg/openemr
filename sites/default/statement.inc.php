@@ -68,10 +68,10 @@ $STMT_PRINT_CMD = $GLOBALS['print_command'];
 //[City, State Zip]              Insurance information on file
 //
 //
-//ADDRESSEE                      REMIT TO
-//Patient Name                     [Your Clinic Name]
-//patient address                  [Your Clinic Address]
-//city, state zipcode              [City, State Zip]
+//ADDRESSEE:                      REMIT TO:
+//Patient Name                    [Your Clinic Name]
+//patient address                 [Your Clinic Address]
+//city, state zipcode             [City, State Zip]
 //                                 If paying by VISA/MC/AMEX/Dis
 //
 //Card_____________________  Exp______ Signature___________________
@@ -97,8 +97,8 @@ $STMT_PRINT_CMD = $GLOBALS['print_command'];
 //We appreciate prompt payment of balances due
 //
 //[Your billing contact name]
-//  Billing Department
-//  [Your billing dept phone]
+// Billing Department
+//[Your billing dept phone]
 
 function create_statement($stmt) {
  if (! $stmt['pid']) return ""; // get out if no data
@@ -136,8 +136,8 @@ function create_statement($stmt) {
 
  // Text only labels
  
- $label_addressee = xl('ADDRESSEE');
- $label_remitto = xl('REMIT TO');
+ $label_addressee = xl('ADDRESSEE:');
+ $label_remitto = xl('REMIT TO:');
  $label_chartnum = xl('Chart Number');
  $label_insinfo = xl('Insurance information on file');
  $label_totaldue = xl('Total amount due');
@@ -166,9 +166,9 @@ $out .= sprintf("%-30s %-s\n",$clinic_csz,$label_insinfo);
 $out .= sprintf("%-30s %s: %-s\n",null,$label_totaldue,null);
 $out .= "\n\n";
 $out .= sprintf("%-30s %-s\n",$label_addressee,$label_remitto);
-$out .= sprintf("%-32s %s\n",$stmt['to'][0],$remit_name);
-$out .= sprintf("%-32s %s\n",$stmt['to'][1],$remit_addr);
-$out .= sprintf("%-32s %s\n",$stmt['to'][2],$remit_csz);
+$out .= sprintf("%-30s %s\n",$stmt['to'][0],$remit_name);
+$out .= sprintf("%-30s %s\n",$stmt['to'][1],$remit_addr);
+$out .= sprintf("%-30s %s\n",$stmt['to'][2],$remit_csz);
 
 if($stmt['to'][3]!='')//to avoid double blank lines the if condition is put.
  	$out .= sprintf("   %-32s\n",$stmt['to'][3]);
@@ -256,8 +256,8 @@ $out .= "\n";
  $out .= sprintf("%-s\n",$label_prompt);
  $out .= "\n";
  $out .= sprintf("%-s\n",$billing_contact);
- $out .= sprintf("  %-s\n",$label_dept);
- $out .= sprintf("  %-s\n",$billing_phone);
+ $out .= sprintf("%-s\n",$label_dept);
+ $out .= sprintf("%-s\n",$billing_phone);
  $out .= "\014"; // this is a form feed
  
  return $out;
